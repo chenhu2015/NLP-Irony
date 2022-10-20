@@ -39,9 +39,6 @@ tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-base")
 def preprocess_function(examples):
     return tokenizer(examples["content"], truncation=True)
 
-def preprocess_function_1(examples):
-    return tokenizer(examples["text"], truncation=True)
-
 
 tokenized_Chinese_train = Chinese_train['train'].map(preprocess_function, batched=True)
 tokenized_Chinese_test = Chinese_test['train'].map(preprocess_function, batched=True)
@@ -51,12 +48,6 @@ tokenized_English_test = English_test['train'].map(preprocess_function, batched=
 
 tokenized_Mix_train = Mix_train['train'].map(preprocess_function, batched=True)
 tokenized_Mix_test = Mix_test['train'].map(preprocess_function, batched=True)
-
-# imdb = load_dataset("imdb")
-# tokenized_imdb = imdb.map(preprocess_function_1, batched=True)
-# print(tokenized_imdb['train'][0])
-# print(tokenized_Mix_train[0])
-# exit()
 
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
